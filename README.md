@@ -16,8 +16,8 @@ All core brand parameters are centralized in a single configuration file:
 | `founder.name` | `"Saurabh Sharma"` | Founder's full name |
 | `founder.role` | `"Founder, Engineer & Entrepreneur"` | Professional title |
 | `founder.location` | `"New Delhi, India - 201310"` | Geographical base |
-| `founder.email` | `"vedyxa.in@gmail.com"` | Primary business contact |
-| `founder.whatsAppUrl` | `"https://wa.me/919506986879"` | Direct 1-tap WhatsApp chat |
+| `founder.email` | `"v******@gmail.com"` | Primary business contact |
+| `founder.whatsAppUrl` | `"https://wa.me/9195******9"` | Direct 1-tap WhatsApp chat |
 | `founder.linkedinUrl` | `"https://www.linkedin.com/in/saurabhsharma1385"` | Professional LinkedIn profile |
 | `founder.instagramUrl` | `"https://www.instagram.com/saurabhsharma1385/"` | Official Instagram profile |
 | `founder.image` | `"/saurabh-sharma.jpg"` | Real founder photograph |
@@ -116,9 +116,9 @@ Creates production bundle in `dist/`.
 | Test Item | Verification Criteria | Status |
 | :--- | :--- | :--- |
 | **Founder Photo** | Saurabh's real photograph renders crisply in About section and Hero pill | Verified |
-| **Email & WhatsApp** | Links route to `saurabhsh8382@gmail.com` and `https://wa.me/919506986879` | Verified |
+| **Email & WhatsApp** | Links route to `sau******@gmail.com` and `https://wa.me/9195******79` | Verified |
 | **Live Project URLs** | External buttons launch MedConnect (Vercel) and ClayVista (Render) in new tabs | Verified |
 | **Contact Submission** | Valid form submission records lead and gives honest confirmation | Verified |
-| **Admin Login** | `/login` authenticates `saurabhsh8382@gmail.com` with `Saurabh@2026` | Verified |
+| **Admin Login** | `/login` authenticates `sau*******@gmail.com` with `S*****6` | Verified |
 | **Enquiries Dashboard** | `/admin` displays incoming leads, search works, and CSV export functions | Verified |
 | **Accessibility & Motion** | Keyboard tab navigation, visible focus rings, and reduced-motion compliance | Verified |
