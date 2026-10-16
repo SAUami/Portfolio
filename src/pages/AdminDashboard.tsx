@@ -60,7 +60,7 @@ export const AdminDashboard: React.FC = () => {
     setActionNotice(null);
 
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const apiBase = (import.meta.env.VITE_API_BASE_URL || '').trim().replace(/\/+$/, '');
       const response = await fetch(`${apiBase}/api/admin/enquiries`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@ export const AdminDashboard: React.FC = () => {
     newStatus: 'new' | 'reviewed' | 'responded' | 'archived'
   ) => {
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const apiBase = (import.meta.env.VITE_API_BASE_URL || '').trim().replace(/\/+$/, '');
       const res = await fetch(`${apiBase}/api/admin/enquiries/${id}/status`, {
         method: 'PATCH',
         headers: {
@@ -125,7 +125,7 @@ export const AdminDashboard: React.FC = () => {
     }
 
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const apiBase = (import.meta.env.VITE_API_BASE_URL || '').trim().replace(/\/+$/, '');
       const res = await fetch(`${apiBase}/api/admin/enquiries/${id}`, {
         method: 'DELETE',
         headers: {

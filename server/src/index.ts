@@ -8,22 +8,39 @@ import { generalApiLimiter } from './middleware/ratelimiter.js';
 
 export const app = express();
 
-// Security HTTP headers
-app.use(helmet());
+// Security HTTP headers - allow cross-origin requests from frontend deployments
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
 
-// CORS configuration
+// Normalize repeated slashes in incoming request URLs (prevents 404 from trailing slash in VITE_API_BASE_URL)
+app.use((req, _res, next) => {
+  if (req.url.includes('//')) {
+    req.url = req.url.replace(/\/{2,}/g, '/');
+  }
+  next();
+});
+
+// CORS configuration - support cross-origin API calls from Vercel deployments
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or Postman)
       if (!origin) return callback(null, true);
-      // In development, allow localhost origins
-      if (env.NODE_ENV === 'development' || origin.includes('localhost') || origin === env.CORS_ORIGIN) {
+      if (
+        env.NODE_ENV === 'development' ||
+        origin.includes('localhost') ||
+        origin.includes('vercel.app') ||
+        origin === env.CORS_ORIGIN
+      ) {
         return callback(null, true);
       }
       return callback(null, true);
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   })
 );
 

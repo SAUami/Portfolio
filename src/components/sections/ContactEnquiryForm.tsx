@@ -124,7 +124,7 @@ export const ContactEnquiryForm: React.FC<ContactEnquiryFormProps> = ({
     setStatusMessage('');
 
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const apiBase = (import.meta.env.VITE_API_BASE_URL || '').trim().replace(/\/+$/, '');
       const response = await fetch(`${apiBase}/api/enquiries`, {
         method: 'POST',
         headers: {

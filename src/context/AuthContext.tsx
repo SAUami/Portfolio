@@ -35,14 +35,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, pass: string): Promise<{ success: boolean; message?: string }> => {
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const rawApiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const apiBase = rawApiBase.trim().replace(/\/+$/, '');
       const response = await fetch(`${apiBase}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password: pass }),
       });
 
-      const data: AuthResponse = await response.json();
+      let data: AuthResponse;
+      try {
+        data = await response.json();
+      } catch {
+        return {
+          success: false,
+          message: `The server responded with an unexpected format (Status: ${response.status}). Please verify your backend URL.`,
+        };
+      }
 
       if (response.ok && data.success && data.token && data.user) {
         setToken(data.token);
@@ -56,10 +65,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         success: false,
         message: data.message || 'Invalid email or password. Please verify your credentials.',
       };
-    } catch {
+    } catch (err) {
+      const target = import.meta.env.VITE_API_BASE_URL || 'default /api';
+      const detail = err instanceof Error ? ` (${err.message})` : '';
       return {
         success: false,
-        message: 'Could not connect to the authentication server. Please ensure the backend is running.',
+        message: `Could not reach backend at "${target}"${detail}. Note: Render free tier may take 50s to wake up from sleep.`,
       };
     }
   };
