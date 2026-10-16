@@ -10,7 +10,8 @@
     "server:dev": "npm --prefix server run dev",
     "server:build": "npm --prefix server run build",
     "server:start": "npm --prefix server start",
-    "server:test": "npm --prefix server test"
+    "server:test": "npm --prefix server test",
+    "db:test": "npm --prefix server run db:test"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -1,8 +1,24 @@
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-// Load environment variables from .env file
-dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Search possible .env locations so it loads correctly regardless of working directory
+const candidateEnvPaths = [
+  path.resolve(__dirname, '../../.env'),
+  path.resolve(process.cwd(), 'server', '.env'),
+  path.resolve(process.cwd(), '.env'),
+];
+
+for (const envPath of candidateEnvPaths) {
+  if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath });
+    break;
+  }
+}
 
 export const env = {
   PORT: parseInt(process.env.PORT || '5000', 10),
